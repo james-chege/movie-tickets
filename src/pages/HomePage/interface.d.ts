@@ -1,0 +1,3 @@
+interface HomePageProps {
+    name: string,
+}

@@ -1,0 +1,3 @@
+interface InlineErrorProps {
+    text: string
+}
