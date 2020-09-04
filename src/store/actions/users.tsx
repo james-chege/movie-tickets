@@ -44,7 +44,14 @@ export const userAuth = (data: any, goTo: (path: string) => void, type = "signup
     try {
         const response = await api.post(endpoint, data)
         dispatch(authSuccess(response.data, type))
-        if (response.data) {
+        if (type === 'signup') {
+            localStorage.setItem("email", response.data.user.email)
+            localStorage.setItem("name", response.data.user.name)
+            localStorage.setItem("token", response.data.token)
+            goTo("/booking")
+            window.location.reload()
+        }
+        if (type === 'login') {
             localStorage.setItem("email", response.data.email)
             localStorage.setItem("name", response.data.name)
             localStorage.setItem("token", response.data.token)
