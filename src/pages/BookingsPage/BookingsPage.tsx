@@ -8,7 +8,6 @@ import {
     Header,
     Container,
     Grid,
-    Loader,
     Form, Divider, Icon
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -78,7 +77,7 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
             <Grid stackable centered columns={2} textAlign='center'>
                     {values.results && values.results.map((ticket: BookingsPageProps["ticket"] ) =>
                         <Grid.Column textAlign='center' key={ticket.id}>
-                            <Link to='movie' onClick={() => makeSelection(ticket)}>
+                            <Link to='/movie' onClick={() => makeSelection(ticket)}>
                                 <Card centered>
                                     <Image src={ticket.image} wrapped ui={false} />
                                     <Card.Content>
