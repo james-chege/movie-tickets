@@ -2,10 +2,11 @@ import {
     SEARCH_MOVIE,
     SEARCH_MOVIE_SUCCESS,
     SEARCH_MOVIE_ERROR,
-    SEARCH_MOVIE_ERRORS,
+    SEARCH_MOVIE_ERRORS, SELECT_MOVIE,
 } from "../constants"
 const initialState = {
     movies: [],
+    selectedMovie: {},
     errors: { isError: false },
     loading: false,
     success: false,
@@ -32,6 +33,12 @@ const reducer = (state = initialState, action: any) => {
                 isSearching: false,
                 errors: { ...state.errors, isError: true, message: action.payload },
                 loading: false,
+            }
+        }
+        case SELECT_MOVIE: {
+            return {
+                ...state,
+                selectedMovie: action.payload
             }
         }
         default:

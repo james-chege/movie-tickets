@@ -4,6 +4,12 @@ interface SearchMovieFormProps {
         movies: Array<object>,
         errors: { isError: boolean },
         loading: boolean,
-        success: boolean
+        success: boolean,
+        selectedMovie: {
+            movie: string;
+            summary: string;
+            year: string;
+            image: string
+        }
     },
 }

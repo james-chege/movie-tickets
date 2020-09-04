@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Container, Divider, Segment} from "semantic-ui-react";
+import {Container, Divider  } from "semantic-ui-react";
 import SearchMovieForm from "../../components/SearchMovieForm/SearchMovieForm";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import {useHistory} from "react-router-dom";

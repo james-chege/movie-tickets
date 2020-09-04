@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import api from "../../utils/api.util"
 import {
     SIGNUP_USER,
@@ -11,7 +9,6 @@ import {
     LOGIN_USER_ERROR,
 } from "../constants"
 import { Dispatch } from "redux";
-import {AxiosResponse} from "axios";
 
 export const startAuth = (authType: any) => {
     let type = authType === "signup" ? SIGNUP_USER : LOGIN_USER

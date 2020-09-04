@@ -11,6 +11,7 @@ import BookingPage from "../pages/BookingPage/BookingPage";
 import PrivateRoute from "../components/PrivateRoute/PrivateRout";
 import authUser from "../utils/authUser.util";
 import NavBar from "../components/Navigation/NavBar";
+import MoviePage from "../pages/MoviePage/MoviePage";
 
 const Routes = () => (
     <Provider store={store}>
@@ -21,6 +22,7 @@ const Routes = () => (
             <Route path="/signup" component={SignUpPage} />
             <PrivateRoute path="/booking" component={BookingsPage} />
             <PrivateRoute path="/book" component={BookingPage} />
+            <PrivateRoute path="/movie" component={MoviePage} />
         </Switch>
     </Provider>
 );

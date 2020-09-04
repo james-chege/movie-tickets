@@ -13,3 +13,9 @@ interface BookingsPageProps {
         year: string
     },
 }
+
+interface movieProps {
+    results: Array<object> | any;
+    value: string;
+    tickets: Array<object>
+}

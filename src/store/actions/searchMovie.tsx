@@ -3,7 +3,7 @@ import {
     SEARCH_MOVIE,
     SEARCH_MOVIE_SUCCESS,
     SEARCH_MOVIE_ERROR,
-    SEARCH_MOVIE_ERRORS,
+    SEARCH_MOVIE_ERRORS, SELECT_MOVIE,
 } from "../constants"
 import { Dispatch } from "redux";
 
@@ -23,6 +23,13 @@ export const searchMovieSuccess = (payload: any) => {
 export const searchMovieError = (payload: any) => {
     return {
         type: SEARCH_MOVIE_ERROR,
+        payload,
+    }
+}
+
+export const selectMovie = (payload: object) => {
+    return {
+        type: SELECT_MOVIE,
         payload,
     }
 }
