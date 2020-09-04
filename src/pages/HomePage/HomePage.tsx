@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import { Container, Header} from "semantic-ui-react";
+import {Button, Container, Header} from "semantic-ui-react";
 import {Link, useHistory} from "react-router-dom";
 import authUser from "../../utils/authUser.util";
 
@@ -25,7 +25,7 @@ const HomePage: React.FC<HomePageProps>  = () => {
                 />
                 <Header
                     as='h2'
-                    content="We are glad you're here, Welcome."
+                    content="We are glad you're here, Welcome!."
                     inverted
                     style={{
                         fontSize: '1.7em',
@@ -33,12 +33,12 @@ const HomePage: React.FC<HomePageProps>  = () => {
                         color: 'black',
                     }}
                 />
-                <button className='button'>
-                    <Link to={'login'}>Login</Link>
-                </button>
-                <button className='button'>
-                    <Link to={'signup'}>Signup</Link>
-                </button>
+                <Link to={'login'}>
+                    <Button primary className='button'>Login</Button>
+                </Link>
+                <Link  color={'white'} to={'signup'}>
+                    <Button secondary className='button'>Signup</Button>
+                 </Link>
             </Container>
         </Fragment>
     )

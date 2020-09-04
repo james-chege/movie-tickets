@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Segment } from "semantic-ui-react";
+import {Container, Divider, Segment} from "semantic-ui-react";
 import SearchMovieForm from "../../components/SearchMovieForm/SearchMovieForm";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import {useHistory} from "react-router-dom";
@@ -25,14 +25,14 @@ export const BookingPage: React.FC<BookingPageProps> = () => {
     }
 
     return (
-        <Segment>
+        <Container>
             <h1>Book a movie</h1>
             <SearchMovieForm onMovieSelect={onMovieSelect} />
-
+            <Divider />
             {values.movie.Title && (
                 <BookingForm submit={addMovie} movie={values.movie} />
             )}
-        </Segment>
+        </Container>
     )
 }
 

@@ -12,21 +12,18 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
     const dispatch = useDispatch();
 
     const booking = useSelector(({ tickets }: BookingsPageProps) => tickets)
+
     useEffect(() => {
         dispatch(getTickets());
     }, [])
 
     useEffect(() => {
         setValues({...values, tickets: booking.tickets})
-        setLoadStatus(booking.loading)
-    }, [booking, loading])
+    }, [booking])
 
     useEffect(() => {
         setLoadStatus(booking.loading)
     }, [values.tickets, loading])
-
-    console.log(values.tickets)
-    console.log(loading)
 
     return (
         <Container>

@@ -58,7 +58,6 @@ export const getTickets = () => async (dispatch: Dispatch) => {
     dispatch(startGettingTickets());
     try {
         const response = await api.get(endpoint)
-        console.log(response.data)
         dispatch(getTicketsSuccess(response.data))
     } catch (error) {
         const err = error.response.data.message || error.response.data.error;

@@ -9,9 +9,12 @@ import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import BookingsPage from '../pages/BookingsPage/BookingsPage';
 import BookingPage from "../pages/BookingPage/BookingPage";
 import PrivateRoute from "../components/PrivateRoute/PrivateRout";
+import authUser from "../utils/authUser.util";
+import NavBar from "../components/Navigation/NavBar";
 
 const Routes = () => (
     <Provider store={store}>
+        {authUser() && <NavBar/>}
         <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} />

@@ -34,7 +34,6 @@ export const searchMovies = (query: string) => async (dispatch: Dispatch) => {
     dispatch(startSearchingMovie());
     try {
         const response = await api.get(endpoint)
-        console.log(response.data)
         dispatch(searchMovieSuccess(response.data.result.Search))
     } catch (error) {
         error.response

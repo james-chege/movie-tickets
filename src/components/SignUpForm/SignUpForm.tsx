@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Button, Form, Grid, Header, Icon, Message} from "semantic-ui-react";
-import InlineError from "../../messages/InlineError";
+import InlineError from "../messages/InlineError";
 import {Link} from "react-router-dom";
 import validations from "../../utils/validations";
 import {clearErrors} from "../../store/actions/users";

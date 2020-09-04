@@ -4,9 +4,11 @@ export default {
             return re.test(String(email).toLowerCase())
         },
     validatePassword: (password: string) => {
+        // simple validation for easy testing(improve this in future)
         return password.length >= 4
     },
     validateName: (password: string) => {
+        // simple validation for easy testing(improve this in future)
         return password.length >= 4
     }
 }

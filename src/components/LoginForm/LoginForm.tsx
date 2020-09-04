@@ -1,7 +1,7 @@
 import {Button, Form, Grid, Header, Message} from "semantic-ui-react";
 import React, {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
-import InlineError from "../../messages/InlineError";
+import InlineError from "../messages/InlineError";
 import validations from "../../utils/validations";
 import {clearErrors} from "../../store/actions/users";
 import {useDispatch} from "react-redux";
