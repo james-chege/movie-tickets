@@ -46,10 +46,12 @@ export const userAuth = (data: any, goTo: any, type = "signup") => async (dispat
         dispatch(authSuccess(response.data, type))
         if (type === "signup") {
             localStorage.setItem("token", response.data.token)
-            localStorage.setItem("user", response.data.email)
+            localStorage.setItem("name", response.data.name)
+            localStorage.setItem("email", response.data.email)
             goTo('/booking')
         } else {
-            localStorage.setItem("user", response.data.email)
+            localStorage.setItem("email", response.data.email)
+            localStorage.setItem("email", response.data.name)
             localStorage.setItem("token", response.data.token)
             goTo("/booking")
         }

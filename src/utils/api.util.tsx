@@ -9,7 +9,7 @@ export const authUserHeader = () => {
     const token = authUser();
     if (token) {
         return {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
         };
     }
     return {};
