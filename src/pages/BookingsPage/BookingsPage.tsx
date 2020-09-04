@@ -57,7 +57,7 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
 
     return (
         <Container>
-            <Loader active={loading} />
+            {/*<Loader active={loading} />*/}
             <BookMovieCtA />
             {booking.tickets &&
             <Form>
