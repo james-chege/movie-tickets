@@ -7,8 +7,8 @@ export default {
         // simple validation for easy testing(improve this in future)
         return password.length >= 4
     },
-    validateName: (password: string) => {
+    validateName: (name: string) => {
         // simple validation for easy testing(improve this in future)
-        return password.length >= 4
+        return name.length >= 4
     }
 }
