@@ -67,6 +67,12 @@ export const getTickets = () => async (dispatch: Dispatch) => {
     }
 }
 
+export const gTickets = async () => {
+    const endpoint = "/api/tickets/getTickets"
+        const { data } = await api.get(endpoint)
+        return data;
+};
+
 export const createTicket = (data: { Title: string, Summary: string, Year: string, Poster: string },
                              callback: { (): void; }) => async (dispatch: Dispatch) => {
     let endpoint = "/api/tickets/create"

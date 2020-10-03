@@ -2,6 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from "react";
 import {Dropdown, DropdownOnSearchChangeData, DropdownProps, Form} from "semantic-ui-react";
 import {searchMovies} from "../../store/actions/searchMovie";
 import {useDispatch, useSelector} from "react-redux";
+import {useTimeout} from "../../helpers/useTimeout";
 
 const SearchMovieForm: React.FC<SearchMovieFormProps> = ({ onMovieSelect }) => {
 
@@ -18,13 +19,13 @@ const SearchMovieForm: React.FC<SearchMovieFormProps> = ({ onMovieSelect }) => {
 
     const movies = useSelector(({ searchMovies }: SearchMovieFormProps) => searchMovies);
 
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            fetchMovies();
-        }, 3000)
-
-        return () => clearTimeout(delayDebounceFn)
-    }, [values.query])
+    // useEffect(() => {
+    //     const delayDebounceFn = setTimeout(() => {
+    //         fetchMovies();
+    //     }, 3000)
+    //
+    //     return () => clearTimeout(delayDebounceFn)
+    // }, [values.query])
 
     const onSearchChange = (e: SyntheticEvent<HTMLElement, Event>, data: DropdownOnSearchChangeData) => {
         setValues({...values, query: data.searchQuery})
@@ -39,6 +40,9 @@ const SearchMovieForm: React.FC<SearchMovieFormProps> = ({ onMovieSelect }) => {
         if (!values.query) return;
         dispatch(searchMovies(values.query));
     }
+
+    useTimeout(fetchMovies, values.query);
+
     useEffect(() => {
         setValues({...values, ...movies?.movies});
     }, [movies])
@@ -73,4 +77,5 @@ const SearchMovieForm: React.FC<SearchMovieFormProps> = ({ onMovieSelect }) => {
         </Form>
     )
 }
+
 export default SearchMovieForm;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Container, Form, Grid, Image, Message} from "semantic-ui-react";
 import {useSelector} from "react-redux";
 
@@ -16,11 +16,17 @@ const BookingForm: React.FC<BookingFormProps> = ({submit, movie}) => {
         submit?.({...movie, Summary: values.summary});
     }
 
+    const mounted: {current: boolean | undefined} = useRef();
+
     useEffect(() => {
-        setValue({
-            ...values, summary: movie?.Title + ' is a ' + movie?.Type + ' released in the year ' + movie?.Year
-        })
-    }, [movie])
+        if (!mounted.current) {
+            //componentDidMount
+            mounted.current = true;
+            setValue({
+                ...values, summary: movie?.Title + ' is a ' + movie?.Type + ' released in the year ' + movie?.Year
+            })
+        }
+    }, [movie, values])
 
     useEffect(() => {
         setLoadStatus(booking.loading)

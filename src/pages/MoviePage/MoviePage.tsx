@@ -7,8 +7,7 @@ const MoviePage: React.FC<RawMovieProps> = () => {
 
     const movie = useSelector(({ searchMovies }: SearchMovieFormProps) => searchMovies?.selectedMovie);
     const history = useHistory();
-    console.log(movie)
-    if (!movie) {
+    if (!movie?.movie) {
         history.push('/booking')
     }
 return (
