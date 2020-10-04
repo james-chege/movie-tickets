@@ -1,15 +1,14 @@
 import React from "react";
 import { Container, Form, Grid, Image } from "semantic-ui-react";
-import {useSelector} from "react-redux";
-import { useHistory} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 
 const MoviePage: React.FC<RawMovieProps> = () => {
 
-    const movie = useSelector(({ searchMovies }: SearchMovieFormProps) => searchMovies?.selectedMovie);
-    const history = useHistory();
-    if (!movie?.movie) {
-        history.push('/booking')
-    }
+    const { status, data, error, isFetching } = useQuery('tickets');
+    const { id } = useParams();
+    const movie = data?.tickets.find((movie: any) => movie.id === Number(id))
+
 return (
     <Container>
         <Form>

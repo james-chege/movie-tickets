@@ -92,7 +92,7 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
         {values.results &&
           values.results.map((ticket: BookingsPageProps["ticket"]) => (
             <Grid.Column textAlign="center" key={ticket.id}>
-              <Link to="/movie" onClick={() => makeSelection(ticket)}>
+              <Link to={`/movie/${ticket.id}`} onClick={() => makeSelection(ticket)}>
                 <Card centered>
                   <Image src={ticket.image} wrapped ui={false} />
                   <Card.Content>
