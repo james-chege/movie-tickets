@@ -53,20 +53,6 @@ export const createTicketError = (payload: any) => {
 
 export const clearErrors = (dispatch: Dispatch) => dispatch({ type: CLEAR_TICKET_ERRORS })
 
-export const getTickets = () => async (dispatch: Dispatch) => {
-    let endpoint = "/api/tickets/getTickets"
-    dispatch(startGettingTickets());
-    try {
-        const response = await api.get(endpoint)
-        dispatch(getTicketsSuccess(response.data))
-    } catch (error) {
-        const err = error.response.data.message || error.response.data.error;
-        error.response
-            ? dispatch(getTicketsError(err))
-            : dispatch(getTicketsError("Something went wrong try again"))
-    }
-}
-
 export const gTickets = async () => {
     const endpoint = "/api/tickets/getTickets"
         const { data } = await api.get(endpoint)

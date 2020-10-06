@@ -3,25 +3,18 @@ import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Card, Container, Divider, Form, Grid, Header, Icon, Image, Loader, Message,} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-import {QueryCache, useQuery, useQueryCache,} from "react-query";
+import { useQuery } from "react-query";
 
 import BookMovieCtA from "../../components/BookMovieCtA/BookMovieCtA";
 import {selectMovie} from "../../store/actions/searchMovie";
 import {gTickets} from "../../store/actions/booking";
 
-const queryCache = new QueryCache();
 
 const BookingsPage: React.FC<BookingsPageProps> = () => {
 
   const {
     data,
-    isError,
-    isFetched,
-    isFetchedAfterMount,
-    isFetching,
-    isFetchingMore,
     isLoading,
-    isSuccess,
     error
   }: any = useTickets();
 
@@ -66,7 +59,6 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
       {error && (
           <Message negative>
             <Message.Header>Something went wrong 😔</Message.Header>
-            <p>{error.message}</p>
           </Message>
       )}
       <BookMovieCtA />

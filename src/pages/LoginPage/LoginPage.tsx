@@ -1,29 +1,32 @@
-import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom"
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 import LoginForm from "../../components/LoginForm/LoginForm";
-import auth from "../../store/actions/users";
+import { login } from "../../store/actions/users";
+import { queryCache, useMutation } from "react-query";
 
 const LoginPage: React.FC<LoginPageProps> = () => {
+  const history = useHistory();
+  const [mutate, { isLoading, data, error }] = useMutation(login);
+  const submit = async (data: LoginPageProps["data"]) => {
+    await mutate(data);
+  };
 
-    const [loading, setSaveStatus] = useState(false)
+  if (data) {
+    history.push("/booking");
+  }
 
-    const dispatch = useDispatch();
-    const history = useHistory()
-    const submit = (data: LoginPageProps['data']) => {
-        dispatch(auth(data, (path: string) => history.push(path || '/'), "login"))
-    }
+  queryCache.setQueryData("user", data);
 
-    const user = useSelector(({ users }: LoginPageProps) => users)
-    useEffect(() => {
-        setSaveStatus(user.loading)
-    }, [user, loading])
+  return (
+    <div>
+      <LoginForm
+        submit={submit}
+        loading={isLoading}
+        error={error}
+      />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <LoginForm submit={submit} loading={loading} error={user.errors}/>
-        </div>
-    );
-}
 export default LoginPage;

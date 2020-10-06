@@ -1,3 +1,4 @@
 interface InlineErrorProps {
-    text: string
+    errors: TFieldErrors,
+    name: string
 }

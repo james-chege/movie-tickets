@@ -1,45 +1,17 @@
 import {Button, Form, Grid, Header, Message} from "semantic-ui-react";
-import React, {ChangeEvent, useState} from "react";
-import {Link} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import React from "react";
+import { Link } from "react-router-dom";
 import InlineError from "../messages/InlineError";
-import validations from "../../utils/validations";
-import {clearErrors} from "../../store/actions/users";
-import {useDispatch} from "react-redux";
 
 
 const LoginForm: React.FC<LoginFormProps> = ({submit, loading, error}) => {
 
-    const [values, setValues] = useState({
-        data: {email: '', password: ''},
-        errors: {email: '', password: ''},
-        loading: false,
-    });
+    const { register, handleSubmit, errors } = useForm();
 
-    const dispatch = useDispatch();
-
-    const onSubmit = () => {
-        const { data } = values;
-        let errors = {email: '', password: ''};
-        const isPasswordValid = validations.validatePassword(data.password);
-        const isEmailValid = validations.validateEmail(data.email);
-        if (!isEmailValid) {
-            errors.email = 'Invalid email';
-            setValues({...values,  errors: {...values.errors, ...errors}});
-        }
-        else if (!isPasswordValid) {
-            errors.password = 'Password should have a minimum of 4 characters';
-            setValues({...values,  errors: {...values.errors, ...errors}});
-        } else if (isEmailValid && isPasswordValid) {
-        //    start saving
-            submit(values.data);
-        }
-    }
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(clearErrors);
-        setValues({
-            ...values, data: {...values.data, [e.target.name]: e.target.value},
-            errors: {...values.errors, [e.target.name]: ''}
-        });
+    const onSubmit = (data: any) => {
+        //start saving
+        submit(data);
     }
     return (
         <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
@@ -48,36 +20,39 @@ const LoginForm: React.FC<LoginFormProps> = ({submit, loading, error}) => {
                     Login
                 </Header>
 
-                <Form onSubmit={onSubmit} loading={values.loading}>
-                    {error.isError && (
+                <Form onSubmit={handleSubmit(onSubmit)} loading={loading}>
+                    {error && (
                         <Message negative>
-                            <Message.Header>Something went wrong</Message.Header>
-                            <p>{error.message}</p>
+                            <Message.Header>{'Invalid Credentials'}</Message.Header>
                         </Message>
                     )}
-                    <Form.Field error={!!values.errors.email}>
+                    <Form.Field error={!!errors.email}>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
                             placeholder="example@example.com"
-                            value={values.data.email}
-                            onChange={onChange}
+                            ref={register({
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    message: 'Invalid Email'
+                                }
+                            })}
                         />
-                        {values.errors.email && <InlineError text={values.errors.email}/>}
+                        <InlineError errors={errors} name={'email'} />
                     </Form.Field>
-                    <Form.Field error={!!values.errors.password}>
+                    <Form.Field error={!!errors.password}>
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             id="password"
                             name="password"
                             placeholder="Make it secure"
-                            value={values.data.password}
-                            onChange={onChange}
+                            ref={register({ required: "Password is required" })}
                         />
-                        {values.errors.password && <InlineError text={values.errors.password}/>}
+                        <InlineError errors={errors} name={'password'} />
                     </Form.Field>
                     <Button disabled={loading} loading={loading} className='btn-submit btn-primary '>Login</Button>
                     <span style={{color: 'white'}}> or </span> <Link to="/signup"> <span className='sign-up-link'>Sign up</span></Link>
