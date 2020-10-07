@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { login } from "../../store/actions/users";
-import { queryCache, useMutation } from "react-query";
+import { useMutation } from "react-query";
 
 const LoginPage: React.FC<LoginPageProps> = () => {
   const history = useHistory();
@@ -13,10 +13,10 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   };
 
   if (data) {
-    history.push("/booking");
+    new Promise(resolve => {
+      resolve(localStorage.setItem('token', data.token));
+    }).then(() => {history.push("/booking"); window.location.reload()}); // Todo: wubba lubba dub dub
   }
-
-  queryCache.setQueryData("user", data);
 
   return (
     <div>
