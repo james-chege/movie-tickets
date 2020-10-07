@@ -14,8 +14,11 @@ const LoginPage: React.FC<LoginPageProps> = () => {
 
   if (data) {
     new Promise(resolve => {
-      resolve(localStorage.setItem('token', data.token));
-    }).then(() => {history.push("/booking"); window.location.reload()}); // Todo: wubba lubba dub dub
+      resolve(window.localStorage.setItem('token', data.token));
+    }).then(() => {
+      history.push("/booking");
+      window.location.reload()
+    }); // Todo: wubba lubba dub dub
   }
 
   return (
