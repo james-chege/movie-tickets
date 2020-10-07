@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 import { useQuery } from "react-query";
 
 import BookMovieCtA from "../../components/BookMovieCtA/BookMovieCtA";
-import {selectMovie} from "../../store/actions/searchMovie";
 import {gTickets} from "../../store/actions/booking";
 
 
@@ -49,10 +48,6 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
     return _.filter(values.tickets, isMatch);
   };
 
-  const makeSelection = (ticket: object) => {
-    dispatch(selectMovie(ticket));
-  };
-
   return (
     <Container>
       <Loader active={isLoading} />
@@ -84,7 +79,7 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
         {values.results &&
           values.results.map((ticket: BookingsPageProps["ticket"]) => (
             <Grid.Column textAlign="center" key={ticket.id}>
-              <Link to={`/movie/${ticket.id}`} onClick={() => makeSelection(ticket)}>
+              <Link to={`/movie/${ticket.id}`}>
                 <Card centered>
                   <Image src={ticket.image} wrapped ui={false} />
                   <Card.Content>
