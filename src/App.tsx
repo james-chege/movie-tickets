@@ -10,14 +10,12 @@ import "./App.css";
 function App() {
   const queryCache = new QueryCache();
   return (
-    <>
       <ReactQueryCacheProvider queryCache={queryCache}>
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </ReactQueryCacheProvider>
-    </>
   );
 }
 
