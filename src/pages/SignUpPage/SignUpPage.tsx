@@ -14,6 +14,7 @@ const LoginPage: React.FC<SignUpPageProps> = () => {
 
   if (data) {
     history.push("/booking");
+    window.location.reload(); // Todo: wubba lubba dub dub
   }
 
   queryCache.setQueryData("user", data);
