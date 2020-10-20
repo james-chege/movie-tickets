@@ -27,8 +27,6 @@ const BookingsPage: React.FC<BookingsPageProps> = () => {
     value: ""
   });
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
         setValues({ ...values, tickets: data?.tickets, results: data?.tickets });
   }, [data]);

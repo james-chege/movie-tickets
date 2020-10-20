@@ -7,7 +7,8 @@ import { useMutation } from "react-query";
 
 const LoginPage: React.FC<LoginPageProps> = () => {
   const history = useHistory();
-  const [mutate, { isLoading, data, error }] = useMutation(login);
+  const {mutate, isLoading, data, error }= useCustomMutation();
+
   const submit = async (data: LoginPageProps["data"]) => {
     await mutate(data);
   };
@@ -31,5 +32,10 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     </div>
   );
 };
+
+export const useCustomMutation = () => {
+  const [mutate, { isLoading, data, error }] = useMutation(login);
+  return { mutate, isLoading, data, error };
+}
 
 export default LoginPage;

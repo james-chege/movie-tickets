@@ -20,7 +20,7 @@ const LoginForm: React.FC<LoginFormProps> = ({submit, loading, error}) => {
                     Login
                 </Header>
 
-                <Form onSubmit={handleSubmit(onSubmit)} loading={loading}>
+                <Form data-testid={'login-form'} onSubmit={handleSubmit(onSubmit)} loading={loading}>
                     {error && (
                         <Message negative>
                             <Message.Header>{'Invalid Credentials'}</Message.Header>
@@ -54,7 +54,7 @@ const LoginForm: React.FC<LoginFormProps> = ({submit, loading, error}) => {
                         />
                         <InlineError errors={errors} name={'password'} />
                     </Form.Field>
-                    <Button disabled={loading} loading={loading} className='btn-submit btn-primary '>Login</Button>
+                    <Button data-testid={'submit-btn'} disabled={loading} loading={loading} className='btn-submit btn-primary '>Login</Button>
                     <span style={{color: 'white'}}> or </span> <Link to="/signup"> <span className='sign-up-link'>Sign up</span></Link>
                 </Form>
             </Grid.Column>
