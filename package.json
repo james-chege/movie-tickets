@@ -6,6 +6,7 @@
     "collectCoverageFrom": [
       "src/**/*.{jsx,ts,tsx}",
       "!src/**/*.{d.ts}",
+      "!<rootDir>/src/index.tsx",
       "!<rootDir>/node_modules/",
       "!<rootDir>/src/serviceWorker.ts"
     ],
