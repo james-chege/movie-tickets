@@ -3,7 +3,7 @@ import {Button, Container, Header} from "semantic-ui-react";
 import {Link, useHistory} from "react-router-dom";
 import authUser from "../../utils/authUser.util";
 
-const HomePage: React.FC<HomePageProps>  = () => {
+const HomePage: React.FC  = () => {
     const history = useHistory()
     const loggedInUser = authUser();
     if (loggedInUser) {
