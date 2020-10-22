@@ -140,5 +140,5 @@ test('should be able to toggle password', async () => {
         </WithRouter>
     )
     fireEvent.click(screen.getByLabelText('eye'));
-    expect(screen.getByLabelText('eye-slash')).toHaveClass('eye slash');
+    expect(screen.getByLabelText('eye')).toHaveClass('eye slash');
 })
