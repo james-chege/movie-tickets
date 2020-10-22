@@ -27,7 +27,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column textAlign="left" id="signup-form" style={{ maxWidth: 450 }}>
         <Header as="h2">Sign Up</Header>
-        <Form onSubmit={handleSubmit(onSubmit)} loading={loading}>
+        <Form data-testid={'sign-up-form'} onSubmit={handleSubmit(onSubmit)} loading={loading}>
           {error && (
             <Message negative>
               <Message.Header>Something went wrong</Message.Header>
@@ -40,6 +40,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
               type="text"
               id="name"
               name="name"
+              placeholder={'name'}
               ref={register({ required: "Name is required" })}
             />
             {errors.name && <InlineError errors={errors} name={"name"} />}
@@ -51,7 +52,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
               type="email"
               id="email"
               name="email"
-              placeholder="username@email.com"
+              placeholder={'username@email.com'}
               ref={register({
                 required: "Email is required",
                 pattern: {
@@ -76,6 +77,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
               type={values.showPassword ? "text" : "password"}
               id="password"
               name="password"
+              placeholder={'Make it secure'}
               onChange={onChange}
             />
             {errors.password && (
@@ -91,11 +93,13 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
                   name={values.showPassword ? "eye slash" : "eye"}
                   link
                   onClick={togglePassword}
+                  aria-label={'eye'}
                 />
               }
               type={values.showPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
+              placeholder={'confirm password'}
               onChange={onChange}
             />
             {errors.confirmPassword && (
@@ -103,9 +107,10 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ submit, loading, error }) => {
             )}
           </Form.Field>
           <Button
-            disabled={loading}
-            loading={loading}
-            className="btn-submit btn-primary"
+              data-testid={'submit-btn'}
+              disabled={loading}
+              loading={loading}
+              className="btn-submit btn-primary"
           >
             Sign Up
           </Button>
