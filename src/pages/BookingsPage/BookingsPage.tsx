@@ -61,6 +61,7 @@ const BookingsPage: React.FC = () => {
               type={"text"}
               id="search"
               name="search"
+              aria-label='search'
               value={values.value}
               onChange={handleSearchChange}
             />
