@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent, cleanup, act as acting } from "@testing-library/react";
 import React from "react";
 import { createMemoryHistory } from "history";
 import {Route, Router } from "react-router-dom";
@@ -14,6 +14,11 @@ const WithRouter = ({...rest}) => (
     </Router>
 );
 const data = {name: 'James', email: 'j@g.com', password: 'pass'}
+
+beforeAll(() => {
+    delete window.location
+    window.location = { reload: jest.fn() }
+})
 
 afterEach(cleanup);
 
@@ -48,13 +53,13 @@ test('Should submit form without errors', async () => {
     expect(screen.getByTestId('login-form')).toHaveClass('loading');
 })
 
-test('should handle errors', async () => {
+test('login mutation hook should work properly', async () => {
     const scope = nock('https://ticket-please.herokuapp.com')
         .defaultReplyHeaders({
             'access-control-allow-origin': '*',
             'access-control-allow-credentials': 'true'
         })
-        .post('/api/users/login', {email: '', password: ''})
+        .post('/api/users/login')
         .reply(200, {token: 'thisisatoken'});
     const {result, waitForNextUpdate} = renderHook(() => useCustomMutation());
     expect(typeof result.current.mutate).toBe('function');
@@ -67,3 +72,53 @@ test('should handle errors', async () => {
 })
 
 
+
+test('should handle error', async () => {
+    render(
+        <WithRouter>
+            <LoginPage data={data} />
+        </WithRouter>
+    )
+    const scope = nock('https://ticket-please.herokuapp.com')
+        .defaultReplyHeaders({
+            'access-control-allow-origin': '*',
+            'access-control-allow-credentials': 'true'
+        })
+        .post('/api/users/login')
+        .reply(400, 'wrong email and or password!');
+    fireEvent.change(screen.getByPlaceholderText("example@example.com"), {
+        target: { value: "new@example.com"}
+    });
+    fireEvent.change(screen.getByPlaceholderText("Make it secure"), {
+        target: { value: "securePass1"}
+    });
+    fireEvent.click(screen.getByTestId('submit-btn'));
+    await acting(() => new Promise((r) => setTimeout(r, 400)))
+    await waitFor(() => screen.getByRole('heading'));
+    expect(screen.getByText('Invalid Credentials')).toBeInTheDocument();
+    expect(scope.isDone()).toBe(true);
+})
+
+test('should login successfully', async () => {
+    render(
+        <WithRouter>
+            <LoginPage data={data} />
+        </WithRouter>
+    )
+    const scope = nock('https://ticket-please.herokuapp.com')
+        .defaultReplyHeaders({
+            'access-control-allow-origin': '*',
+            'access-control-allow-credentials': 'true'
+        })
+        .post('/api/users/login')
+        .reply(200, {token: 'thisisatoken', name: 'fake', email: 'fake@g.com'});
+    fireEvent.change(screen.getByPlaceholderText("example@example.com"), {
+        target: { value: "new@example.com"}
+    });
+    fireEvent.change(screen.getByPlaceholderText("Make it secure"), {
+        target: { value: "securePass1"}
+    });
+    fireEvent.click(screen.getByTestId('submit-btn'));
+    await acting(() => new Promise((r) => setTimeout(r, 400)));
+    await waitFor(() => screen.getByRole('heading'));
+})
