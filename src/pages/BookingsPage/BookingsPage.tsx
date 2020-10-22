@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Card, Container, Divider, Form, Grid, Header, Icon, Image, Loader, Message,} from "semantic-ui-react";
 import {Link} from "react-router-dom";
@@ -9,17 +8,13 @@ import BookMovieCtA from "../../components/BookMovieCtA/BookMovieCtA";
 import {gTickets} from "../../store/actions/booking";
 
 
-const BookingsPage: React.FC<BookingsPageProps> = () => {
+const BookingsPage: React.FC = () => {
 
   const {
     data,
     isLoading,
     error
   }: any = useTickets();
-
-  if (error) {
-    console.log(error.message)
-  }
 
   const [values, setValues] = useState<movieProps>({
     tickets: [],
