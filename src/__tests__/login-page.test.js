@@ -100,6 +100,9 @@ test('should handle error', async () => {
 })
 
 test('should login successfully', async () => {
+    const { location } = window;
+    delete window.location;
+    window.location = { reload: jest.fn() };
     render(
         <WithRouter>
             <LoginPage data={data} />
@@ -121,4 +124,6 @@ test('should login successfully', async () => {
     fireEvent.click(screen.getByTestId('submit-btn'));
     await acting(() => new Promise((r) => setTimeout(r, 400)));
     await waitFor(() => screen.getByRole('heading'));
+    expect(window.location.reload).toHaveBeenCalled();
+    window.location = location;
 })
