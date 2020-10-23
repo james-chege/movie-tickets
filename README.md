@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/james-chege/movie-tickets.svg?branch=develop)](https://travis-ci.org/james-chege/movie-tickets)
+[![Build Status](https://travis-ci.org/james-chege/movie-tickets.svg?branch=ft-react-query)](https://travis-ci.org/james-chege/movie-tickets)
+[![Coverage Status](https://coveralls.io/repos/github/james-chege/movie-tickets/badge.svg?branch=ft-react-query)](https://coveralls.io/github/james-chege/movie-tickets?branch=ft-react-query)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
