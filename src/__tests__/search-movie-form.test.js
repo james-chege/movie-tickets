@@ -1,6 +1,6 @@
 import React from "react";
 import WithRouter from "../helpers/withRouter";
-import { act as acting, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act as acting, fireEvent, render, screen } from "@testing-library/react";
 import SearchMovieForm from "../components/SearchMovieForm/SearchMovieForm";
 import nock from "nock";
 import tickets from "../__mocks__/search-result";
@@ -20,7 +20,6 @@ test('search form', async () => {
     fireEvent.change(searchInput, {
         target: { value: "super"}
     });
-    await acting(() => new Promise((r) => setTimeout(r, 400)))
+    await acting(() => new Promise((r) => setTimeout(r, 1000)))
     expect(searchInput.value).toBe('super');
-    screen.debug()
 })

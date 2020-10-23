@@ -7,7 +7,7 @@ import {createTicket} from "../../store/actions/booking";
 import {useDispatch} from "react-redux";
 
 
-export const BookingPage: React.FC<BookingPageProps> = () => {
+export const BookingPage: React.FC = () => {
 
     const [values, setValues] = useState({
         movie: {Title: '', Year: '', Summary: '', Poster: ''}
