@@ -3,7 +3,7 @@ import { Container, Form, Grid, Image } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 
-const MoviePage: React.FC<RawMovieProps> = () => {
+const MoviePage: React.FC = () => {
 
     const { status, data, error, isFetching } = useQuery('tickets');
     const { id } = useParams();
@@ -43,6 +43,7 @@ return (
                         <Form.Field>
                             <label htmlFor="pages">Summary</label>
                             <input
+                                aria-label={'movie-summary'}
                                 disabled
                                 type="text"
                                 id="summary"

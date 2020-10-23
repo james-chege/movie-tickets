@@ -5,7 +5,7 @@ import BookingsPage from "../pages/BookingsPage/BookingsPage";
 import { queryCache } from "react-query";
 import React from "react";
 
-test('should do shit', async () => {
+test('should render properly', async () => {
     const scope = nock('https://ticket-please.herokuapp.com')
         .defaultReplyHeaders({
             'access-control-allow-origin': '*',
