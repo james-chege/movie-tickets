@@ -85,7 +85,7 @@ test('should handle error', async () => {
     });
     fireEvent.click(screen.getByTestId('submit-btn'));
     await acting(() => new Promise((r) => setTimeout(r, 400)))
-    await waitFor(() => screen.getByRole('heading'));
+    await waitFor(() => screen.getByText('Something went wrong'));
     expect(screen.getByText('Request failed with status code 400')).toBeInTheDocument();
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     expect(scope.isDone()).toBe(true);
