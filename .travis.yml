@@ -15,4 +15,5 @@ script:
   - yarn coverage
 
 after_script:
-  - yarn coveralls
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+
