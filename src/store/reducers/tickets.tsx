@@ -15,27 +15,6 @@ const initialState = {
 }
 const reducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case CLEAR_TICKET_ERRORS: {
-            return { ...state, errors: {} }
-        }
-        case GET_TICKETS: {
-            return { ...state, loading: true }
-        }
-        case GET_TICKETS_SUCCESS: {
-            return {
-                ...state,
-                success: true,
-                tickets: action.payload.tickets,
-                loading: false,
-            }
-        }
-        case GET_TICKETS_ERROR: {
-            return {
-                ...state,
-                errors: { ...state.errors, isError: true, message: action.payload },
-                loading: false,
-            }
-        }
         case CREATE_TICKET: {
             return {
                 ...state,

@@ -34,11 +34,11 @@ const BookingForm: React.FC<BookingFormProps> = ({submit, movie}) => {
 
     return (
         <Container>
-            <Form onSubmit={onSubmit} loading={loading}>
+            <Form data-testid='booking-form' onSubmit={onSubmit} loading={loading}>
                 {booking.errors.isError && (
                     <Message negative>
                         <Message.Header>Something went wrong</Message.Header>
-                        <p>{booking.errors}</p>
+                        <p>{booking.errors && booking.errors.message}</p>
                     </Message>
                 )}
                 <Grid columns={2} stackable>
@@ -86,7 +86,7 @@ const BookingForm: React.FC<BookingFormProps> = ({submit, movie}) => {
                             <Image size="small" src={movie?.Poster} />
                         </Grid.Column>
                         <Grid.Column>
-                            <Button primary>Book</Button>
+                            <Button data-testid='book-btn' primary>Book</Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

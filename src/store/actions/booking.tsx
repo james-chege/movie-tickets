@@ -1,7 +1,6 @@
 import api from "../../utils/api.util"
 import {
     GET_TICKETS,
-    GET_TICKETS_SUCCESS,
     GET_TICKETS_ERROR,
     CLEAR_TICKET_ERRORS,
     CREATE_TICKET,
@@ -10,29 +9,9 @@ import {
 } from "../constants"
 import { Dispatch } from "redux";
 
-export const startGettingTickets = () => {
-    return {
-        type: GET_TICKETS,
-    }
-}
-
 export const startCreatingTicket = () => {
     return {
         type: CREATE_TICKET,
-    }
-}
-
-export const getTicketsSuccess = (payload: any) => {
-    return {
-        type: GET_TICKETS_SUCCESS,
-        payload,
-    }
-}
-
-export const getTicketsError = (payload: any) => {
-    return {
-        type: GET_TICKETS_ERROR,
-        payload,
     }
 }
 
