@@ -29,5 +29,4 @@ test('', async () => {
     expect(screen.getByRole('listbox')).toBeInTheDocument();
     fireEvent.click(screen.getAllByRole('option')[0]);
     expect(screen.getByText('Skyscraper')).toBeInTheDocument();
-    screen.debug()
 })
