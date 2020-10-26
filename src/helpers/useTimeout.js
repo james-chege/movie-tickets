@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 
-export function useTimeout(func: () => void, value: any, timeout= 3000) {
+export function useTimeout(func, value, timeout= 3000) {
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             func();
