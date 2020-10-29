@@ -11,7 +11,6 @@ import { createMemoryHistory } from "history";
 import { Route, Router } from "react-router-dom";
 import LoginPage, { useCustomMutation } from "../pages/LoginPage/LoginPage";
 import { renderHook, act } from "@testing-library/react-hooks";
-import nock from "nock";
 import mockApi from "../utils/mockApi";
 
 const history = createMemoryHistory();
