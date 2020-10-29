@@ -1,18 +1,18 @@
-import nock from "nock";
 import { act as acting, render, screen } from "@testing-library/react";
 import WithRouter from "../helpers/withRouter";
 import BookingsPage from "../pages/BookingsPage/BookingsPage";
 import { queryCache } from "react-query";
 import React from "react";
+import mockApi from "../utils/mockApi";
 
 test('should render properly', async () => {
-    const scope = nock('https://ticket-please.herokuapp.com')
-        .defaultReplyHeaders({
-            'access-control-allow-origin': '*',
-            'access-control-allow-credentials': 'true'
-        })
-        .get('/api/tickets/getTickets')
-        .reply(400, 'something terrible happened');
+    const scope = mockApi(
+        'get',
+        '/api/tickets/getTickets',
+        'something terrible happened',
+        400
+        )
+
     render(
         <WithRouter>
             <BookingsPage/>

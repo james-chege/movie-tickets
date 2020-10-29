@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import store from "../store";
 import nock from "nock";
 import tickets from "../__mocks__/search-result";
+import mockApi from "../utils/mockApi";
 
 
 const BookingPageComponent = () => (
@@ -23,31 +24,31 @@ const BookingPageComponent = () => (
 )
 
 test("", async () => {
-  const scope = nock("https://ticket-please.herokuapp.com")
-    .defaultReplyHeaders({
-      "access-control-allow-origin": "*",
-      "access-control-allow-credentials": "true",
-    })
-    .get("/api/tickets/search?q=Skyscraper")
-    .reply(200, { result: { Search: tickets } });
-  const scope1 = nock("https://ticket-please.herokuapp.com")
-    .defaultReplyHeaders({
-      "access-control-allow-origin": "*",
-      "access-control-allow-credentials": "true",
-    })
-    .post("/api/tickets/create")
-    .reply(200, {
-      ticket: {
-        id: 28,
-        movie: "Gotham",
-        summary:
-          "That Dare Devil is a movie released in the year 1911",
-        year: "1911",
-        image:
-            "https://m.media-amazon.com/images/M/MV5BMTU5NjQ2MTU4NV5BMl5BanBnXkFtZTgwOTYyNTAwNzM@._V1_SX300.jpg",
+  const scope = mockApi(
+      'get',
+      "/api/tickets/search?q=Skyscraper",
+      { result: { Search: tickets } },
+      200
+      );
+
+  const scope1 = mockApi(
+      'post',
+      "/api/tickets/create",
+      {
+          ticket: {
+              id: 28,
+              movie: "Gotham",
+              summary:
+                  "That Dare Devil is a movie released in the year 1911",
+              year: "1911",
+              image:
+                  "https://m.media-amazon.com/images/M/MV5BMTU5NjQ2MTU4NV5BMl5BanBnXkFtZTgwOTYyNTAwNzM@._V1_SX300.jpg",
+          },
+          message: "Ticket created successfully.",
       },
-      message: "Ticket created successfully.",
-    });
+      200
+  );
+
   render(<BookingPageComponent />);
   expect(screen.getByText("Book a movie")).toBeInTheDocument();
   fireEvent.click(screen.getByRole("combobox"));
@@ -68,20 +69,18 @@ test("", async () => {
 
 
 test("should handle error", async () => {
-  const scope = nock("https://ticket-please.herokuapp.com")
-      .defaultReplyHeaders({
-        "access-control-allow-origin": "*",
-        "access-control-allow-credentials": "true",
-      })
-      .post("/api/tickets/create")
-      .reply(400, { message: "something bad happened"});
-  const scope1 = nock("https://ticket-please.herokuapp.com")
-      .defaultReplyHeaders({
-        "access-control-allow-origin": "*",
-        "access-control-allow-credentials": "true",
-      })
-      .get("/api/tickets/search?q=Skyscraper")
-      .reply(200, { result: { Search: tickets } });
+  const scope = mockApi(
+      'post',
+      "/api/tickets/create",
+      { message: "something bad happened"},
+      400
+  )
+    const scope1 = mockApi(
+        'get',
+        "/api/tickets/search?q=Skyscraper",
+        { result: { Search: tickets } },
+        200
+    )
   render(<BookingPageComponent />);
   expect(screen.getByText("Book a movie")).toBeInTheDocument();
   fireEvent.click(screen.getByRole("combobox"));

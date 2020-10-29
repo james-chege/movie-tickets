@@ -4,6 +4,7 @@ import { createMemoryHistory } from "history";
 import {Route, Router } from "react-router-dom";
 import nock from 'nock';
 import SignUpPage  from "../pages/SignUpPage/SignUpPage";
+import mockApi from "../utils/mockApi";
 
 const history = createMemoryHistory()
 
@@ -100,20 +101,20 @@ test('should signup successfully', async () => {
             <SignUpPage />
         </WithRouter>
     )
-    const scope = nock('https://ticket-please.herokuapp.com')
-        .defaultReplyHeaders({
-            'access-control-allow-origin': '*',
-            'access-control-allow-credentials': 'true'
-        })
-        .post('/api/users/signup')
-        .reply(200, {
+    const scope = mockApi(
+        'post',
+        '/api/users/signup',
+        {
             user: {
                 token: 'thisisatoken',
                 name: 'fake', email: 'fake@g.com',
                 password: 'secure',
                 confirmPassword: 'secure'
             }
-        });
+        },
+        200
+    )
+
     fireEvent.change(screen.getByPlaceholderText("name"), {
         target: { value: "new@example.com"}
     });

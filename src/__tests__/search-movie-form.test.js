@@ -4,15 +4,16 @@ import { act as acting, fireEvent, render, screen } from "@testing-library/react
 import SearchMovieForm from "../components/SearchMovieForm/SearchMovieForm";
 import nock from "nock";
 import tickets from "../__mocks__/search-result";
+import mockApi from "../utils/mockApi";
 
 test('search form', async () => {
-    const scope = nock('https://ticket-please.herokuapp.com')
-        .defaultReplyHeaders({
-            'access-control-allow-origin': '*',
-            'access-control-allow-credentials': 'true'
-        })
-        .get('/api/tickets/search?q=super')
-        .reply(200, { result : { Search: tickets } });
+    const scope = mockApi(
+        'get',
+        '/api/tickets/search?q=super',
+        { result : { Search: tickets } },
+        200
+    )
+
     const onMovieSelect = jest.fn();
     render(<WithRouter><SearchMovieForm onMovieSelect={onMovieSelect}/></WithRouter>);
     expect(screen.getByText('No results found.')).toBeInTheDocument();

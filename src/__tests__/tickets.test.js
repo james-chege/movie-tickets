@@ -5,17 +5,18 @@ import WithRouter from "../helpers/withRouter";
 import nock from "nock";
 import tickets from "../__mocks__/tickets";
 import { queryCache } from "react-query";
+import mockApi from "../utils/mockApi";
 
 afterEach(cleanup)
 beforeEach(() => queryCache.clear());
 test('should render without error', async () => {
-    const scope = nock('https://ticket-please.herokuapp.com')
-        .defaultReplyHeaders({
-            'access-control-allow-origin': '*',
-            'access-control-allow-credentials': 'true'
-        })
-        .get('/api/tickets/getTickets')
-        .reply(200, { tickets });
+    const scope = mockApi(
+        'get',
+        '/api/tickets/getTickets',
+        { tickets },
+        200
+        )
+
     render(
         <WithRouter>
             <BookingsPage/>
@@ -40,13 +41,13 @@ test('should render without error', async () => {
 })
 
 test('should handle error', async () => {
-    const scope = nock('https://ticket-please.herokuapp.com')
-        .defaultReplyHeaders({
-            'access-control-allow-origin': '*',
-            'access-control-allow-credentials': 'true'
-        })
-        .get('/api/tickets/getTickets')
-        .reply(400, 'something terrible happened');
+    const scope = mockApi(
+        'get',
+        '/api/tickets/getTickets',
+        'something terrible happened',
+        400
+        )
+
     render(
         <WithRouter>
             <BookingsPage/>
