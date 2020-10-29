@@ -7,7 +7,6 @@ const uri = process.env.REACT_APP_API_URL
 
 export const authUserHeader = () => {
     const token = authUser();
-    console.log({token})
     if (token) {
         return {
             Authorization: `Bearer ${token}`,
