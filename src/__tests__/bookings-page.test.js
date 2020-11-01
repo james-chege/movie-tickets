@@ -4,12 +4,13 @@ import BookingsPage from "../pages/BookingsPage/BookingsPage";
 import { queryCache } from "react-query";
 import React from "react";
 import mockApi from "../utils/mockApi";
+import { SERVER_ERROR } from "../utils/constants";
 
 test('should render properly', async () => {
     const scope = mockApi(
         'get',
         '/api/tickets/getTickets',
-        'something terrible happened',
+        SERVER_ERROR,
         400
         )
 

@@ -2,10 +2,10 @@ import { act as acting, cleanup, fireEvent, render, screen } from "@testing-libr
 import BookingsPage from "../pages/BookingsPage/BookingsPage";
 import React from "react";
 import WithRouter from "../helpers/withRouter";
-import nock from "nock";
 import tickets from "../__mocks__/tickets";
 import { queryCache } from "react-query";
 import mockApi from "../utils/mockApi";
+import { SERVER_ERROR } from "../utils/constants";
 
 afterEach(cleanup)
 beforeEach(() => queryCache.clear());
@@ -44,7 +44,7 @@ test('should handle error', async () => {
     const scope = mockApi(
         'get',
         '/api/tickets/getTickets',
-        'something terrible happened',
+        SERVER_ERROR,
         400
         )
 
